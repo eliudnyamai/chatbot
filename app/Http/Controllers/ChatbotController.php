@@ -134,7 +134,6 @@ class ChatbotController extends Controller
         set_time_limit(0);
         $pumbleKey = env('PUMBLE_KEY'); //when replying as michelle the bot
         $GetMessagesUrl = 'https://pumble-api-keys.addons.marketplace.cake.com/listMessages?channel=questions&Api-Key=' . $pumbleKey;
-        // Make GET request with headers
         $response = Http::withHeaders([
             'Api-Key' => $pumbleKey,
         ])->get($GetMessagesUrl);
@@ -155,16 +154,15 @@ class ChatbotController extends Controller
             foreach ($unrepliedMessages as $message) {
                 $url = url('/create?message_id=' . $message['id'] . '&question=' . urlencode($message['text']));
                 $body = "Click this link <a href={$url}>Answer</a> to provide an answer to your teammate";
-                $this->sendSMS($body);
-
                 $text = $message['text'];
                 $threadRun = $this->createAndRunThread($text);
                 $answer = $this->loadAnswer($threadRun);
                 if ($answer == "Null") {
                     $url = url('/create?message_id=' . $message['id'] . '&question=' . urlencode($message['text']));
                     $body = "Click this link <a href={$url}>Answer</a> to provide an answer to your teammate";
-                    $answer ="Just a minute";
+                    $answer = "Just a minute";
                     $this->sendSMS($body);
+                    Log::info("I found no answer");
                 }
                 $response = Http::withHeaders([
                     'Content-Type' => 'application/json',
@@ -229,12 +227,12 @@ class ChatbotController extends Controller
         $account_sid = getenv('TWILIO_ACCOUNT_SID');
         $auth_token = getenv('TWILIO_AUTH_TOKEN');
 
-        $twilio_number = "+1 833 987 4856";
+        $twilio_number = "twilio number";
 
         $client = new Client($account_sid, $auth_token);
         $client->messages->create(
             // Where to send a text message (your cell phone?)
-            '689-287-3119',
+            'Phone number to send to',
             array(
                 'from' => $twilio_number,
                 'body' => $body

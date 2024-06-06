@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -14,11 +15,13 @@
                 document.getElementById('delete-form-' + id).submit();
             }
         }
+
         function editItem(id) {
             document.getElementById('edit-form-' + id).submit();
         }
     </script>
 </head>
+
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <nav class="bg-gray-800 p-4">
         <div class="container mx-auto flex justify-between items-center">
@@ -36,7 +39,8 @@
                 {{ session('message') }}
             </div>
         @endif
-        <div class="text-white text-center md:text-2xl ">This is the training data of the chatbot. Here you get the chance to refine the training data and add more</div>
+        <div class="text-white text-center md:text-2xl ">This is the training data of the chatbot. Here you get the
+            chance to refine the training data and add more</div>
         <div class="bg-black md-p-8 overflow-y-auto h-screen mx-auto">
             <table class="min-w-full divide-y divide-gray-700">
                 <thead>
@@ -88,8 +92,10 @@
             </table>
         </div>
         <div class="my-4">
-            <a href="/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add more training data</a>
-    </div>
+            <a href="/create" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Add more
+                training data</a>
+        </div>
     </div>
 </body>
+
 </html>
